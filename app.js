@@ -12,3 +12,12 @@ const Post = require('./models/Post');
 const User = require('./models/User');
 const helmet = require('helmet');
 const hpp = require('hpp');
+
+const port = process.env.PORT ||  3000;
+
+// dotenv config {path: './.env'}
+dotenv.config();
+
+const postRoutes = require('./routes/posts');
+const userRoutes = require('./routes/users');
+
