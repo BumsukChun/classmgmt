@@ -1,4 +1,4 @@
-const winston = require('winston'); // 로그를 파일에 기록
+const winston = require('winston'); // logs into files
 
 const logger = winston.createLogger({
     level: 'info',

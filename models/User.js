@@ -7,40 +7,5 @@ let UserSchema = new mongoose.Schema({
     lastName: String,
     password: String,
     profile: String,
-    posts: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post"
-        }
-    ],
-
-    liked_posts: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post"
-        }
-    ],
-    
-    liked_comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post"
-        }
-    ],
-    friends: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    ],
-    friendRequests: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    ],
+    level: String, // manager, teacher, parent, student
 });
-
-UserSchema.plugin(passportLocalMongoose);
-let User = mongoose.model('User', UserSchema);
-module.exports = User;
