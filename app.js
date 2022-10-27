@@ -4,13 +4,34 @@ const winston = require('./config/winston');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const socket = require('socket.io');
 const dotenv = require('dotenv');
+const flash = require('connect-flash'); // show messages
+// const Post = require('./models/Post');
+const User = require('./models/User');
+const helmet = require('helmet');
+const hpp = require('hpp');
 
 const port = process.env.PORT || 3000;
 dotenv.config();
 
+const userRoutes = require('./routes/users');
+const morgan = require('morgan');
+const { initialize } = require('passport');
 const app = express();
 
+app.set('view engine', 'ejs');
+
+if (process.env.NODE_ENV == 'production') {
+    // app.enable('trust proxy');
+    app.use(morgan('combined'));
+    app.use(helmet({ contentSecurityPolicy: false}));
+    app.use(hpp());
+} else {
+    app.use(morgan('dev'));
+}
 
 // middleware
 app.use(cookieParser(process.env.SESSION_SECRET)); // ##### YOU NEED expire TIME here later ##### 
@@ -31,9 +52,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(session(sessOptions));
+app.use(flash());
 
 // passport
-
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // express middleware
 app.use(express.json());
@@ -55,6 +81,8 @@ mongoose
     });
 
 // Routers
+// app.use('/', userRoutes);
+// app.use('/', postRoutes);
 app.get('/', (req, res) => {
     res.send('HAHAHA');
 });
