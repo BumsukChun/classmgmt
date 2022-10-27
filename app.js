@@ -80,7 +80,7 @@ mongoose
         winston.error(err);
     });
 
-// to Template file, transfer variables
+// to Template file, transfer variables from req to res
 app.use((req, res, next) => {
     res.locals.user = req.user;
     res.locals.login = req.isAuthenticated();
@@ -90,11 +90,11 @@ app.use((req, res, next) => {
 });
 
 // Routers
-// app.use('/', userRoutes);
+app.use('/', userRoutes);
 // app.use('/', postRoutes);
-app.get('/', (req, res) => {
-    res.send('HAHAHA');
-});
+// app.get('/', (req, res) => {
+//     res.send('HAHAHA');
+// });
 
 // Server listening
 const server = app.listen(port, () => {
