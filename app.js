@@ -80,6 +80,15 @@ mongoose
         winston.error(err);
     });
 
+// to Template file, transfer variables
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    res.locals.login = req.isAuthenticated();
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success!');
+    next();
+});
+
 // Routers
 // app.use('/', userRoutes);
 // app.use('/', postRoutes);
