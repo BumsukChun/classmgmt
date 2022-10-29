@@ -41,6 +41,9 @@ const isLoggedIn = (req, res, next) => {
 };
 
 // Routers
+
+// 
+
 // User routers
 router.post('/user/register', upload.single('image'), (req, res) => {
     if (
@@ -67,9 +70,11 @@ router.post('/user/register', upload.single('image'), (req, res) => {
     }
 });
 
+
 // Login
 router.get('/user/login', csrfProtection, (req, res) => {
-    res.render('users/login', { csrfToken: req.csrfToken() });
+    a = {b:3333};
+    res.render('users/login', { csrfToken: req.csrfToken() , data: JSON.stringify(a)});
 });
 
 module.exports = router;

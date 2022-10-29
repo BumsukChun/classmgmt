@@ -8,5 +8,43 @@
 </head>
 <body>
     <h1>LOGIN</h1>
+    <script src="https://unpkg.com/vue@next"></script>
+    <div id="counter">
+        Counter: {{ counter }}
+    </div>
+    <script>
+        const CounterApp = {
+            data() {
+              return {
+                counter: 0
+              }
+            },
+            mounted() {
+              setInterval(() => {
+                this.counter++
+              }, 1000);
+            }
+        }
+          
+        Vue.createApp(CounterApp).mount('#counter')
+    </script>
+    <div id="app1">b: {{ myData.b }}</div>
+    <script>
+        const App1 = {
+            data() {
+                return {
+                    myData: JSON.parse('<%- data %>')
+                }
+            }
+        }
+        // var app = new Vue({
+        //    el: '#app',
+        //    data: {
+        //        myData: JSON.parse('<%- a.b %>')
+        //    }
+        // }) 
+        Vue.createApp(App1).mount('#app1')
+    </script>
+
 </body>
 </html>

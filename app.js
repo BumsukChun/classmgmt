@@ -92,9 +92,10 @@ app.use((req, res, next) => {
 // Routers
 app.use('/', userRoutes);
 // app.use('/', postRoutes);
-// app.get('/', (req, res) => {
-//     res.send('HAHAHA');
-// });
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
 
 // Server listening
 const server = app.listen(port, () => {
